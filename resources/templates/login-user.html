@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <title>Chat Room</title>
+</head>
+<body style="background-color:#EDEAE5;">
+<div class="container-fluid-nav text-center">
+  <nav class="navbar navbar-expand-lg text-white text-center" style="background-color:#026670;">
+  <a class="navbar-brand text-center display-4" style="color:#FEF9C7;">LOGIN</a>
+</nav>
+<div id="user-card" class="d-flex justify-content-center m-5">
+  <div class="card bg-light  p-5 center text-center">
+    <form method="post" action="/request-login">
+      <div class="form-group form-row justify-content-center">
+        <label for="username" class="h6 text-center">Username <small class="text-muted">Not Empty</small></label></br></br>
+        <input type="input" class="form-control" id="username" aria-describedby="username" name="username" style="border-color:#cdc7c2;"
+               placeholder="Enter Username">
+        <button type="submit" id="login-btn" class="btn btn-primary mt-3 " style="background-color:#026670;border-color:#026670;">Submit</button>
+      </div>
+      <p th:if="${loginError}" class="error"><span id="alert" class="text-danger h6">Invalid username!</span></p>
+    </form>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

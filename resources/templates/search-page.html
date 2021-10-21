@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Chat Room</title>
+</head>
+<body style="background-color:#EDEAE5;">
+    <nav class="navbar text-white" style="background-color:#026670; text-align: center; position: absolute; width: 100%;">
+                <div class="col-4" style="text-align: left">
+                    <a class="navbar-brand display-4" style="color:#FEF9C7;">SEARCH</a>
+                </div>
+                <div class="col-4">
+                    <a class="font-weight-bold" style="color:#FEF9C7;">welcome,&nbsp; </a>
+                    <a class="font-weight-light" style="color:#FEF9C7;" th:text="${session.username}">  </a>
+                </div>
+                <div class="col-4" style="text-align: right; font-size: small; color:#FCE181">
+                    <a href="/back-to-chat" style="font-size: small; color:#FCE181">BACK</a>
+                </div>
+    </nav>
+</br></br></br></br>
+    <div class ="container">
+        <div class="row">
+            <div class="col-5"></div>
+            <div class="col-4 justify-content-center">
+                <form action="/choose-search" class="form-group justify-content-center" method="POST" modelAttribute="preferences" style="font-size: small; color:#026670">
+                    <nobr><label for="type"><small>Choose a search type:</small></label></nobr>&nbsp;&nbsp;&nbsp;
+                    <select name="type" id="type" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <nobr><option value="Message" style="font-size: small; color:#026670">Message</option>></nobr>
+                        <nobr><option value="User" style="font-size: small; color:#026670">User</option></nobr>
+                    </select>
+                    </br>
+                    &nbsp;	&nbsp;	&nbsp;	&nbsp;
+                    <input type="submit" value="SELECT" class="btn btn-primary mt-3 " style="background-color:#026670;border-color:#026670;">
+                </form>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        </br></br>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class ="col-8" th:if="${isMessage}">
+                <form method="post" action="/searchByMessage">
+                    <div class="form-group form-row justify-content-center">
+                        <label for="search" class="h6 text-center">SEARCH <small class="text-muted">By message</small></label></br></br>
+                        <input type="input" class="form-control" id="search" aria-describedby="search" name="search" style="border-color:#cdc7c2;"
+                               placeholder="Enter search words">
+                        </br>
+                        <button type="submit" id="logout-btn" class="btn btn-primary mt-3 " style="background-color:#026670;border-color:#026670;">SEARCH</button>
+                    </div>
+                </form>
+            </div>
+            <div class ="col-8" th:if="!${isMessage}">
+                <form method="post" action="/searchByUser">
+                    <div class="form-group form-row justify-content-center">
+                        <label for="search" class="h6 text-center">SEARCH <small class="text-muted">By username</small></label></br></br>
+                        <input type="input" class="form-control" id="searchU" aria-describedby="search" name="search" style="border-color:#cdc7c2;"
+                               placeholder="Enter search words">
+                        </br>
+                        <button type="submit" id="loout-btn" class="btn btn-primary mt-3 " style="background-color:#026670;border-color:#026670;">SEARCH</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        </br>
+        <div class="row" >
+            <div class="col-2"></div>
+            <div id="chat-card" class="col-8 card bg-light p-4" style="height: auto; color:#026670;" th:if="${isMessage}">
+                <table>
+                    <tr>
+                        <td style="font-weight: bold;color:#026670; text-decoration: underline;">Messages <small>by massage</small>:</td>
+                    </tr>
+                    <tr id="event-count" th:each="message : ${allMsgs}">
+                        <td style="width:15%">
+                            <a th:text="${message.username}" style="font-weight: bold;">Title</a>
+                        </td>
+                        <td>
+                            <a>:&nbsp;</a>
+                        </td>
+                        <td th:text="${message.message}" style="width:85%;text-align: left">Text</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="cha-card" class="col-8 card bg-light p-4" style="height: auto; color:#026670;" th:if="${!isMessage}">
+                <table>
+                    <tr>
+                        <td style="font-weight: bold;color:#026670; text-decoration: underline;">Messages <small>by username</small>:</td>
+                    </tr>
+                    <tr id="eent-count" th:each="user : ${allMsgsByUser}">
+                        <td style="width:15%">
+                            <a th:text="${user.username}" style="font-weight: bold;">Title</a>
+                        </td>
+                        <td>
+                            <a>:&nbsp;</a>
+                        </td>
+                        <td th:text="${user.message}" style="width:85%;text-align: left">Text</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>
